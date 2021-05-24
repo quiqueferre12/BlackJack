@@ -42,12 +42,12 @@ public class Deck : MonoBehaviour
          * En principio, la posición de cada valor se deberá corresponder con la posición de faces. 
          * Por ejemplo, si en faces[1] hay un 2 de corazones, en values[1] debería haber un 2.
          */
-        int cartap = 0;//variable para el valor de las cartas en el palo
-        for (int i = 0; i < 52; i++)
+        int cartap = 0;//variable para recoger el valor  el valor de las cartas en el palo
+        for (int i = 0; i < 52; i++)//rellenamos los valores de las cartas
         {
             cartap++;
 
-            if (cartap <= 10)//la carta tiene valores mayores o iguales a 10, solo quedan 3 cartas
+            if (cartap <= 10)//la carta tiene valores menores o iguales a 10
             {
                 if (cartap != 1)//si no es un as
                 {
@@ -63,11 +63,11 @@ public class Deck : MonoBehaviour
             }
             else//si se cumple la condicion establecida
             {
-                if (cartap == 13)
+                if (cartap == 13)//para ubicar el siguiente palo
                 {
-                    cartap = 0;
+                    cartap = 0;//para reiniciarlo
                 }
-                values[i] = 10;
+                values[i] = 10;// para la que son 10
             }
         }
     }
@@ -95,7 +95,7 @@ public class Deck : MonoBehaviour
             values[random] = quit;//ponemos el valor random de la aux
 
             //Para los Sprites
-            quitSprite = faces[i];
+            quitSprite = faces[i];//desordenamos con la misma variable aleatoria para que la carta coincida con su valor
             faces[i] = faces[random];
             faces[random] = quitSprite;
         }
@@ -150,18 +150,10 @@ public class Deck : MonoBehaviour
          * - Probabilidad de que el jugador obtenga entre un 17 y un 21 si pide una carta
          * - Probabilidad de que el jugador obtenga más de 21 si pide una carta          
          */
-        /*TODO:
-         * Calcular las probabilidades de:
-         * - Teniendo la carta oculta, probabilidad de que el dealer tenga más puntuación que el jugador
-         * - Probabilidad de que el jugador obtenga entre un 17 y un 21 si pide una carta
-         * - Probabilidad de que el jugador obtenga más de 21 si pide una carta          
-         */
-
-
         //Probabilidad de que el jugador obtenga más de 21 si pide una carta
 
-        int cPos;
-        float prob;
+        int cPos;//variable de los casos posibles
+        float prob;//probabilidades entre el minimo 0 y el maximo 1
 
         cPos = 13 - (21 - player.GetComponent<CardHand>().points);//del as al rey hay 13 - (21(el numero que se pide) - los puntos que lleva el jugador)
         prob = cPos / 13f;// casos posibles / casos totales 
@@ -175,8 +167,6 @@ public class Deck : MonoBehaviour
         {
             prob = 1;
         }
-
-
         if (player.GetComponent<CardHand>().points <= 11)//si los puntos son <= no hay carta que te permita llegar a 21, por lo tanto la prob es 0
         {
             prob = 0;
