@@ -102,6 +102,23 @@ public class Deck : MonoBehaviour
             /*TODO:
              * Si alguno de los dos obtiene Blackjack, termina el juego y mostramos mensaje
              */
+            //empezamos con el dealer
+            if (dealer.GetComponent<CardHand>().points == 21 || player.GetComponent<CardHand>().points > 21)//si el dealer llega a 21 o el jugador se pasa de 21
+            {
+                //quitamos la interaccion posible con el seguimiento del juego
+                hitButton.interactable = false;
+                stickButton.interactable = false;
+                dealer.GetComponent<CardHand>().cards[0].GetComponent<CardModel>().ToggleFace(true); // se gira la acrta del dealer
+                finalMessage.text = "Has perdido";
+                
+            }
+            if (player.GetComponent<CardHand>().points == 21 || dealer.GetComponent<CardHand>().points > 21)
+            {
+                stickButton.interactable = false;
+                hitButton.interactable = false;
+                finalMessage.text = "Has ganado";
+               
+            }
         }
     }
 
@@ -139,10 +156,26 @@ public class Deck : MonoBehaviour
         /*TODO: 
          * Si estamos en la mano inicial, debemos voltear la primera carta del dealer.
          */
-       
+        dealer.GetComponent<CardHand>().cards[0].GetComponent<CardModel>().ToggleFace(true); // se gira la carta del dealer en la casilla 0
+        //Repartimos carta al jugador
+        PushPlayer();
         /*TODO:
          * Comprobamos si el jugador ya ha perdido y mostramos mensaje
-         */ 
+         */
+        if (player.GetComponent<CardHand>().points > 21)//si se ha pasado de 21
+        {
+            finalMessage.text = "Has perdido";
+            stickButton.interactable = false;
+            hitButton.interactable = false;
+            
+        }
+        else if (player.GetComponent<CardHand>().points == 21)
+        {
+            finalMessage.text = "Has ganado";
+            stickButton.interactable = false;
+            hitButton.interactable = false;
+            
+        }
     }
 
     public void Stand()
