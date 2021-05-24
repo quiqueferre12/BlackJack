@@ -128,6 +128,7 @@ public class Deck : MonoBehaviour
                 transaccion();
 
             }
+            //luego con el player
             if (player.GetComponent<CardHand>().points == 21 || dealer.GetComponent<CardHand>().points > 21)
             {
                 stickButton.interactable = false;
@@ -136,6 +137,18 @@ public class Deck : MonoBehaviour
                 apoCien.interactable = false;
                 finalMessage.text = "Has ganado";
                 banca = banca + apuesta * 2;
+                apuesta = 0;
+                transaccion();
+            }
+            //si hay empate
+            if(player.GetComponent<CardHand>().points == 21 && dealer.GetComponent<CardHand>().points == 21)
+            {
+                stickButton.interactable = false;
+                hitButton.interactable = false;
+                apoDiez.interactable = false;
+                apoCien.interactable = false;
+                finalMessage.text = "Empate";
+                banca = banca + apuesta;
                 apuesta = 0;
                 transaccion();
             }
