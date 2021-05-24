@@ -150,6 +150,39 @@ public class Deck : MonoBehaviour
          * - Probabilidad de que el jugador obtenga entre un 17 y un 21 si pide una carta
          * - Probabilidad de que el jugador obtenga más de 21 si pide una carta          
          */
+        /*TODO:
+         * Calcular las probabilidades de:
+         * - Teniendo la carta oculta, probabilidad de que el dealer tenga más puntuación que el jugador
+         * - Probabilidad de que el jugador obtenga entre un 17 y un 21 si pide una carta
+         * - Probabilidad de que el jugador obtenga más de 21 si pide una carta          
+         */
+
+
+        //Probabilidad de que el jugador obtenga más de 21 si pide una carta
+
+        int cPos;
+        float prob;
+
+        cPos = 13 - (21 - player.GetComponent<CardHand>().points);//del as al rey hay 13 - (21(el numero que se pide) - los puntos que lleva el jugador)
+        prob = cPos / 13f;// casos posibles / casos totales 
+
+        //redondeamos dado el caso de ajuste para evitar errores
+        if (prob < 0)
+        {
+            prob = 0;
+        }
+        if (prob > 1)
+        {
+            prob = 1;
+        }
+
+
+        if (player.GetComponent<CardHand>().points <= 11)//si los puntos son <= no hay carta que te permita llegar a 21, por lo tanto la prob es 0
+        {
+            prob = 0;
+        }
+        txtProb.text = "La probabilidad de obtener más de 21 es: " + (prob * 100).ToString() + " %";//imprimimos el resultado obtenido
+
     }
 
     void PushDealer()
