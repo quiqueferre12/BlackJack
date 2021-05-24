@@ -71,6 +71,25 @@ public class Deck : MonoBehaviour
          * El método Random.Range(0,n), devuelve un valor entre 0 y n-1
          * Si lo necesitas, puedes definir nuevos arrays.
          */
+        int quit; //se quita el numero para poner otra aleatoria(aux)
+        Sprite quitSprite;//se quita el numero para el sprite
+        int random; //variable para guardar el numero random
+
+
+
+        //procedemos con el proceso almacenandolo en arrays
+        for (int i = 0; i <= values.Length - 1; i++)
+        {
+            random = Random.Range(0, 52); //se genera el numero aleatorio
+            quit = values[i];//se guarda en la auxuiliar
+            values[i] = values[random];//ponemos el numero actual en el random
+            values[random] = quit;//ponemos el valor random de la aux
+
+            //Para los Sprites
+            quitSprite = faces[i];
+            faces[i] = faces[random];
+            faces[random] = quitSprite;
+        }
     }
 
     void StartGame()
